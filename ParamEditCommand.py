@@ -20,7 +20,7 @@ def update_params(inputs):
 
     # Set all parameter values based on the input form
     for param in design.userParameters:
-        input_expression = inputs.itemById(param.name).value
+        input_expression = inputs.itemById(str(hash(param.name))).value
 
         # Use Fusion Units Manager to validate user expression
         if units_manager.isValidExpression(input_expression, units_manager.defaultLengthUnits):
@@ -47,6 +47,6 @@ class ParamEditCommand(Fusion360CommandBase):
         design = app_objects['design']
 
         for param in design.userParameters:
-            inputs.addStringValueInput(param.name,
+            inputs.addStringValueInput(str(hash(param.name)),
                                        param.name,
                                        param.expression)
